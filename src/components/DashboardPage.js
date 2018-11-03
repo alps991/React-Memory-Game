@@ -1,5 +1,6 @@
 import React from 'react';
 import MemoryGame from './MemoryGame';
+import { connect } from 'react-redux';
 
 class DashboardPage extends React.Component {
 
@@ -16,10 +17,12 @@ class DashboardPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.highScore);
     if (!this.state.gameStarted) {
       return (
         <div className="dashboard-page">
           <button className="button" onClick={this.handleStart}>Start Game</button>
+          <p>Your high score is {this.props.highScore}</p>
         </div>
       );
     }
@@ -32,4 +35,8 @@ class DashboardPage extends React.Component {
   }
 }
 
-export default DashboardPage;
+const mapStateToProps = (state) => ({
+  highScore: state.game.highScore
+});
+
+export default connect(mapStateToProps)(DashboardPage);

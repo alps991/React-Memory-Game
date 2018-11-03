@@ -1,6 +1,8 @@
 import React from 'react';
 import AnswerForm from './AnswerForm';
 import EndGamePage from './EndGamePage';
+import { connect } from 'react-redux';
+import { setHighScore } from '../actions/game';
 
 class MemoryGame extends React.Component {
 
@@ -39,6 +41,7 @@ class MemoryGame extends React.Component {
             }, 2000);
         } else {
             this.setState({ gameOver: true });
+            this.props.setHighScore(this.state.level);
         }
     }
 
@@ -62,4 +65,8 @@ class MemoryGame extends React.Component {
     }
 }
 
-export default MemoryGame;
+const mapDispatchToProps = (dispatch) => ({
+    setHighScore: (level) => dispatch(setHighScore(level))
+});
+
+export default connect(undefined, mapDispatchToProps)(MemoryGame);
